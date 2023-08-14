@@ -6,7 +6,7 @@ from classes.game import Game
 from classes.player import Player
 from enums.player_type import PlayerType
 
-
+################## DOMINO #######################################
 def test_is_double():
     domino_double = Domino(3, 3)
     domino_not_double = Domino(2, 5)
@@ -21,3 +21,4 @@ def test_str_representation():
 def test_repr_representation():
     domino = Domino(1, 6)
     assert repr(domino) == "[1;6]"
+
