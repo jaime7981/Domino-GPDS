@@ -77,14 +77,14 @@ class Board():
                 if self.is_player_able_to_place_domino(domino):
                     break
             else:
-                return None
+                return [True, None]
 
         # check if player runs out of dominos
         for player in self.players:
             if len(player.dominos) == 0:
-                return player
+                return [True, player]
         
-        return False
+        return [False, None]
             
     def start(self):
         if len(self.players) < 2:
