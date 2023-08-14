@@ -47,12 +47,34 @@ class Board():
             return None
 
     def player_place_domino(self, player, domino):
-        self.placed_dominos.append(domino)
-        player.remove_domino(domino)
+        if self.is_player_able_to_place_domino(player, domino):
+            self.placed_dominos.append(domino)
+            player.remove_domino(domino)
+
+            return True
+        else:
+            raise Exception("Player is not able to place domino")
+            return False
+
+    def is_player_able_to_place_domino(self, domino):
+        if len(self.placed_dominos) == 0:
+            return True
+        elif domino.values[0] == self.placed_dominos[0].values[0]:
+            return True
+        elif domino.values[1] == self.placed_dominos[0].values[0]:
+            return True
+        elif domino.values[0] == self.placed_dominos[-1].values[1]:
+            return True
+        elif domino.values[1] == self.placed_dominos[-1].values[1]:
+            return True
+        else:
+            return False
             
     def start(self):
         if len(self.players) < 2:
             raise Exception("Not enough players")
+        elif len(self.players) > 14:
+            raise Exception("Too many players")
         
         while len(self.domino_stack) // len(self.players) >= 1:
             for player in self.players:
@@ -67,7 +89,11 @@ class Board():
         self.players.insert(0, starting_player)
 
         self.player_place_domino(self.players[0], self.players[0].higher_double_domino())
-    
 
     def __str__(self) -> str:
-        return f"{self.placed_dominos}"
+        placed_dominos = ""
+
+        for domino in self.placed_dominos:
+            placed_dominos += str(domino) + " "
+
+        return f"{placed_dominos}"

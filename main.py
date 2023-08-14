@@ -26,7 +26,5 @@ def main():
     # Board with the domino pieces
     print(main_board)
 
-    
-
 if __name__ == '__main__':
     main()
