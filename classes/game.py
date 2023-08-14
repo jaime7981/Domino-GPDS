@@ -46,9 +46,12 @@ class Game():
         else:
             return None
 
-    def player_place_domino(self, player, domino):
-        if self.is_player_able_to_place_domino(domino):
-            self.placed_dominos.append(domino)
+    def player_place_domino(self, player, domino, place):
+        if self.is_player_able_to_place_domino(domino)[0]:
+            if place == 0:
+                self.placed_dominos.insert(0, domino)
+            elif place == -1:
+                self.placed_dominos.append(domino)
             player.remove_domino(domino)
 
             return True
@@ -58,22 +61,22 @@ class Game():
 
     def is_player_able_to_place_domino(self, domino):
         if len(self.placed_dominos) == 0:
-            return True
+            return (True,0)
         elif domino.values[0] == self.placed_dominos[0].values[0]:
-            return True
+            return (True,0)
         elif domino.values[1] == self.placed_dominos[0].values[0]:
-            return True
+            return (True,0)
         elif domino.values[0] == self.placed_dominos[-1].values[1]:
-            return True
+            return (True,-1)
         elif domino.values[1] == self.placed_dominos[-1].values[1]:
-            return True
+            return (True,-1)
         else:
-            return False
+            return (False,None)
         
     def select_player_domino(self, player, domino):
         for domino in player.dominos:
-            if self.is_player_able_to_place_domino(domino):
-                return domino
+            if self.is_player_able_to_place_domino(domino)[0]:
+                return (domino, self.is_player_able_to_place_domino(domino)[1])
         
         return None
         
@@ -81,7 +84,7 @@ class Game():
         # check if no players can place dominos
         for player in self.players:
             for domino in player.dominos:
-                if self.is_player_able_to_place_domino(domino):
+                if self.is_player_able_to_place_domino(domino)[0]:
                     break
             else:
                 return [True, None]
