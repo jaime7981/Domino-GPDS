@@ -10,6 +10,9 @@ class Domino():
         
         return False
 
+    def flip_domino(self):
+        self.values.reverse()
+
     def __str__(self) -> str:
         return f"[{self.values[0]};{self.values[1]}]"
 
