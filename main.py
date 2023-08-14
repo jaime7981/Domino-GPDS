@@ -15,13 +15,16 @@ def main():
 
     # Leftover domino pieces
     print(len(main_board.domino_stack))
-    
+
     for domino in main_board.domino_stack:
         print(domino)
 
     # Players with their domino pieces
     for player in main_board.players:
         print(player)
+
+    # Board with the domino pieces
+    print(main_board)
 
     
 
