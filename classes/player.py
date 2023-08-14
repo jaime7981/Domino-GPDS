@@ -6,5 +6,8 @@ class Player():
         self.player_type = player_type
         self.dominos = []
 
+    def draw_domino(self, domino):
+        self.dominos.append(domino)
+
     def __str__(self) -> str:
         return f'Name: {self.name}\nPlayer Type: {self.player_type}\nDominos: {self.dominos}'
