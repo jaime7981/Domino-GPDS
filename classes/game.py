@@ -1,7 +1,7 @@
 from classes.domino import Domino
 import random
 
-class Board():
+class Game():
     def __init__(self) -> None:
         self.players = []
         self.placed_dominos = []
@@ -47,7 +47,7 @@ class Board():
             return None
 
     def player_place_domino(self, player, domino):
-        if self.is_player_able_to_place_domino(player, domino):
+        if self.is_player_able_to_place_domino(domino):
             self.placed_dominos.append(domino)
             player.remove_domino(domino)
 
