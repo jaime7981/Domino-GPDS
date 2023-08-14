@@ -70,6 +70,13 @@ class Game():
         else:
             return False
         
+    def select_player_domino(self, player, domino):
+        for domino in player.dominos:
+            if self.is_player_able_to_place_domino(domino):
+                return domino
+        
+        return None
+        
     def is_game_over(self):
         # check if no players can place dominos
         for player in self.players:
