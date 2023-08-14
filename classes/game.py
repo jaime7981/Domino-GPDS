@@ -75,7 +75,7 @@ class Game():
             if self.is_player_able_to_place_domino(domino):
                 return domino
         
-        return False
+        return None
         
     def is_game_over(self):
         # check if no players can place dominos
