@@ -9,9 +9,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
   build:
 
@@ -27,8 +24,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install pytest
-    - name: Navigate to test folder
-      run: cd Test
     - name: Test with pytest
       run: |
-        pytest
+        python -m pytest -v

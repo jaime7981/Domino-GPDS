@@ -1,3 +1,5 @@
+import pytest
+
 from classes.domino import Domino
 from classes.example_class import ExampleClass
 from classes.game import Game
