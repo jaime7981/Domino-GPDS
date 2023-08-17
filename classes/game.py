@@ -114,7 +114,7 @@ class Game():
         self.players.remove(starting_player)
         self.players.insert(0, starting_player)
 
-        self.player_place_domino(self.players[0], self.players[0].higher_double_domino())
+        self.player_place_domino(self.players[0], self.players[0].higher_double_domino(), 0)
 
     def __str__(self) -> str:
         placed_dominos = ""

@@ -5,7 +5,7 @@ from enums.player_type import PlayerType
 def main():
     main_game = Game()
 
-    main_game.add_player(Player('Player 1', PlayerType.HUMAN))
+    main_game.add_player(Player('Player 1'))
     main_game.add_player(Player('Player 2'))
     main_game.add_player(Player('Player 3'))
     main_game.add_player(Player('Player 4'))
