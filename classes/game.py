@@ -61,40 +61,44 @@ class Game():
 
     def is_player_able_to_place_domino(self, domino):
         if len(self.placed_dominos) == 0:
-            return (True,0)
+            return (True,0,False)
         elif domino.values[0] == self.placed_dominos[0].values[0]:
-            return (True,0)
+            return (True,0,True)
         elif domino.values[1] == self.placed_dominos[0].values[0]:
-            return (True,0)
+            return (True,0,False)
         elif domino.values[0] == self.placed_dominos[-1].values[1]:
-            return (True,-1)
+            return (True,-1,False)
         elif domino.values[1] == self.placed_dominos[-1].values[1]:
-            return (True,-1)
+            return (True,-1,True)
         else:
-            return (False,None)
+            return (False,None,None)
         
-    def select_player_domino(self, player, domino):
+    def select_player_domino(self, player):
         for domino in player.dominos:
             if self.is_player_able_to_place_domino(domino)[0]:
-                return (domino, self.is_player_able_to_place_domino(domino)[1])
+                return (domino, self.is_player_able_to_place_domino(domino))
         
         return None
         
     def is_game_over(self):
-        # check if no players can place dominos
-        for player in self.players:
-            for domino in player.dominos:
-                if self.is_player_able_to_place_domino(domino)[0]:
-                    break
-            else:
-                return [True, None]
-
         # check if player runs out of dominos
         for player in self.players:
             if len(player.dominos) == 0:
                 return [True, player]
-        
-        return [False, None]
+    
+        # check if no players can place dominos
+        for player in self.players:
+            for domino in player.dominos:
+                if self.is_player_able_to_place_domino(domino)[0]:
+                    return [False, None]
+           
+        return [True, None]
+    
+    def next_player(self, index_current_player):
+        if index_current_player == len(self.players) - 1:
+            return self.players[0]
+        else:
+            return self.players[index_current_player + 1]
             
     def start(self):
         if len(self.players) < 2:
@@ -113,9 +117,47 @@ class Game():
         
         self.players.remove(starting_player)
         self.players.insert(0, starting_player)
+        current_player = starting_player
 
-        self.player_place_domino(self.players[0], self.players[0].higher_double_domino(), 0)
+        self.player_place_domino(current_player, current_player.higher_double_domino(), 0)
+        return self.next_player(self.players.index(current_player))
 
+    def next_turn(self, current_player):
+        input("Press enter to continue...")
+        if self.is_game_over()[0]:
+            print(f"Game over!")
+            return False
+        else:
+            if current_player.dominos:
+                data_domino = self.select_player_domino(current_player)
+                if data_domino is not None:
+                    domino = data_domino[0]
+                    place = data_domino[1][1]
+                    flip = data_domino[1][2]
+                    if flip:
+                        domino.flip_domino()
+                    self.player_place_domino(current_player, domino, place)
+                    print(f"{current_player.name} placed {domino} at {place}")
+                    return self.next_player(self.players.index(current_player))
+                else:
+                    print(f"{current_player.name} has no dominos to place!")
+                    return self.next_player(self.players.index(current_player))
+                #     if flip:
+                #         domino.flip_domino()
+                #     self.player_place_domino(current_player, domino, place)
+                #     print(f"{current_player.name} placed {domino} at {place}")
+                #     print(self)
+                #     return self.next_player(self.players.index(current_player))
+                # else:
+                #     print(f"{current_player.name} has no dominos to place!")
+                #     return self.next_player(self.players.index(current_player))
+                
+            else:
+                print(f"{current_player.name} has no more dominos!")
+                return False
+
+        
+    
     def __str__(self) -> str:
         placed_dominos = ""
 
