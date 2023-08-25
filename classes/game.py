@@ -1,4 +1,5 @@
 from classes.domino import Domino
+from classes.player import Player
 import random
 
 class Game():
@@ -155,6 +156,18 @@ class Game():
             else:
                 print(f"{current_player.name} has no more dominos!")
                 return False
+
+    def set_player(self):
+        amount_players = int(input("How many players? "))
+        if amount_players < 2:
+            print("Not enough players")
+            return False
+        elif amount_players > 14:
+            print("Too many players")
+            return False
+        for i in range(amount_players):
+            self.add_player(Player(f"Player {i + 1} "))
+        return True
 
         
     

@@ -1,27 +1,30 @@
 from classes.game import Game
-from classes.player import Player
+
 from enums.player_type import PlayerType
 
 def main():
     main_game = Game()
 
-    numeroJugador = (input("escriba la cantidad de jugadores:    "))
     while True:
-        if(numeroJugador.isdigit() == False):
-            print("error no es un caracter valido")
-            numeroJugador = input("escriba la cantidad de jugadores valida (no caracteres) :    ")
-        else:
-            if(int(numeroJugador) < 2 or int(numeroJugador) > 14):
-                numeroJugador = input(" escriba una cantidad valida entre 2 y 14:   ")
-            else:
-                break
-    for i in range(int(numeroJugador)):
-        main_game.add_player(Player(f'Player {i+1}'))
+        if main_game.set_player():
+            break
+    # numeroJugador = (input("escriba la cantidad de jugadores:    "))
+    # while True:
+    #     if(numeroJugador.isdigit() == False):
+    #         print("error no es un caracter valido")
+    #         numeroJugador = input("escriba la cantidad de jugadores valida (no caracteres) :    ")
+    #     else:
+    #         if(int(numeroJugador) < 2 or int(numeroJugador) > 14):
+    #             numeroJugador = input(" escriba una cantidad valida entre 2 y 14:   ")
+    #         else:
+    #             break
+    # for i in range(int(numeroJugador)):
+    #     main_game.add_player(Player(f'Player {i+1}'))
     
-    # main_game.add_player(Player('Player 2'))
-    # main_game.add_player(Player('Player 3'))
-    # main_game.add_player(Player('Player 4'))
-    # main_game.add_player(Player('Player 5'))
+    # # main_game.add_player(Player('Player 2'))
+    # # main_game.add_player(Player('Player 3'))
+    # # main_game.add_player(Player('Player 4'))
+    # # main_game.add_player(Player('Player 5'))
 
     next_player = main_game.start()
     
