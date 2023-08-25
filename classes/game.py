@@ -126,8 +126,12 @@ class Game():
     def next_turn(self, current_player):
         input("Press enter to continue...")
         if self.is_game_over()[0]:
-            print(f"Game over!")
-            return False
+            if self.is_game_over()[1] is not None:
+                print(f"{self.is_game_over()[1].name} won!")
+                return False
+            else:
+                print("No one can place a domino, game over!")
+                return False
         else:
             if current_player.dominos:
                 data_domino = self.select_player_domino(current_player)
@@ -143,21 +147,11 @@ class Game():
                 else:
                     print(f"{current_player.name} has no dominos to place!")
                     return self.next_player(self.players.index(current_player))
-                #     if flip:
-                #         domino.flip_domino()
-                #     self.player_place_domino(current_player, domino, place)
-                #     print(f"{current_player.name} placed {domino} at {place}")
-                #     print(self)
-                #     return self.next_player(self.players.index(current_player))
-                # else:
-                #     print(f"{current_player.name} has no dominos to place!")
-                #     return self.next_player(self.players.index(current_player))
-                
             else:
                 print(f"{current_player.name} has no more dominos!")
                 return False
 
-    def set_player(self):
+    def set_players(self):
         amount_players = int(input("How many players? "))
         if amount_players < 2:
             print("Not enough players")
