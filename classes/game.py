@@ -100,6 +100,12 @@ class Game():
             return self.players[0]
         else:
             return self.players[index_current_player + 1]
+    
+    def print_staus_game(self,player):
+        print(f"Player: {player.name} has {player.dominos}")
+        print(f"Board: {self.placed_dominos}")
+        input("Press enter to continue...")
+        print()
             
     def start(self):
         if len(self.players) < 2:
@@ -112,6 +118,7 @@ class Game():
                 player.draw_domino(self.domino_stack.pop())
         
         starting_player = self.starting_player()
+        self.print_staus_game(starting_player)
         
         if starting_player is None:
             raise Exception("No starting player")
@@ -124,7 +131,7 @@ class Game():
         return self.next_player(self.players.index(current_player))
 
     def next_turn(self, current_player):
-        input("Press enter to continue...")
+        # input("Press enter to continue...")
         if self.is_game_over()[0]:
             if self.is_game_over()[1] is not None:
                 print(f"{self.is_game_over()[1].name} won!")
@@ -143,12 +150,21 @@ class Game():
                         domino.flip_domino()
                     self.player_place_domino(current_player, domino, place)
                     print(f"{current_player.name} placed {domino} at {place}")
+                    print(f"Board: {self.placed_dominos}")
+                    input("Press enter to continue...") 
+                    print()
                     return self.next_player(self.players.index(current_player))
                 else:
                     print(f"{current_player.name} has no dominos to place!")
+                    print(f"Board: {self.placed_dominos}")
+                    input("Press enter to continue...")
+                    print()
                     return self.next_player(self.players.index(current_player))
             else:
                 print(f"{current_player.name} has no more dominos!")
+                print(f"Board: {self.placed_dominos}")
+                input("Press enter to continue...")
+                print()
                 return False
 
     def set_players(self):
@@ -163,7 +179,7 @@ class Game():
             self.add_player(Player(f"Player {i + 1} "))
         return True
 
-        
+          
     
     def __str__(self) -> str:
         placed_dominos = ""
