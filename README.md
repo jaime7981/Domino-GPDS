@@ -1,4 +1,4 @@
 # Domino-GPDS
 # Correr el ejecutable
 
-+ `./main`
++ `./dist/main`
