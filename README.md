@@ -17,3 +17,7 @@ De haber algun error al correr el ejecutable, se puede correr el proyecto usando
 
 + `python3 main.py`
 + `python main.py`
+
+### Repositorio github
+
+- https://github.com/jaime7981/Domino-GPDS
